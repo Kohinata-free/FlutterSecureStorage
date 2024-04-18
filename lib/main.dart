@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:secure_stor/SecondPage.dart';
 
 void main() {
@@ -56,7 +57,7 @@ class FirstPage extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              provText,
+              '保存データ=$provText',
               style: TextStyle(
                 color: Colors.red,
                 fontSize: 32,
@@ -65,10 +66,13 @@ class FirstPage extends ConsumerWidget {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () async {
+                final storage = FlutterSecureStorage();
+                await storage.delete(key: 'KEY_TEMP');
                 var ret = await Navigator.pushNamed(context, '/second');
                 print(ret);
-                ref.read(prov1.notifier).state = ret.toString();
                 ref.read(prov2.notifier).state = ret.toString();
+                final String? dat = await storage.read(key: 'KEY_TEMP');
+                ref.read(prov1.notifier).state = dat != null ? dat : 'null';
               },
               child: Text('次のページ'),
             ),

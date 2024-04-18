@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:secure_stor/main.dart';
 
 final prov2 = StateProvider<String>((ref) {
@@ -54,6 +55,8 @@ class SecondPage extends ConsumerWidget {
               onPressed: () {
                 ref.read(prov1.notifier).state = 'prov1更新!';
                 ref.read(prov2.notifier).state = 'prov2更新!';
+                final storage = FlutterSecureStorage();
+                storage.write(key: 'KEY_TEMP', value: '保存完了！');
               },
               child: Text('更新'),
             ),
