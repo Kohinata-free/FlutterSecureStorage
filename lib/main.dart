@@ -80,7 +80,10 @@ class FirstPage extends ConsumerWidget {
               },
               child: Text(
                 '次のページ',
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ],
