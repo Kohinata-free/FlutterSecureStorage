@@ -65,6 +65,10 @@ class FirstPage extends ConsumerWidget {
             ),
             SizedBox(height: 20),
             ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.purple.shade100),
+              ),
               onPressed: () async {
                 final storage = FlutterSecureStorage();
                 await storage.delete(key: 'KEY_TEMP');
@@ -74,7 +78,13 @@ class FirstPage extends ConsumerWidget {
                 final String? dat = await storage.read(key: 'KEY_TEMP');
                 ref.read(prov1.notifier).state = dat != null ? dat : 'null';
               },
-              child: Text('次のページ'),
+              child: Text(
+                '次のページ',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ],
         ),
